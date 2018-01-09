@@ -27,4 +27,10 @@ public class IndexController {
 	public String welcome(HttpServletRequest request, Model model) {
 		return "jsp/index/welcome";
 	}
+	
+	@RequestMapping("adv.do")
+	public String adv(HttpServletRequest request, Model model) {
+		log.info("advis in success");
+		return "jsp/index/adv";
+	}
 }

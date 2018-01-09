@@ -16,7 +16,7 @@
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
   <div class="logo margin-big-left fadein-top">
-    <h1><img src="images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
+    <h1><img src="${path}/public/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
   </div>
   <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;<a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="${path}/user/logout.do"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
@@ -28,7 +28,7 @@
     <li><a href="info.html" target="right"><span class="icon-caret-right"></span>网站设置</a></li>
     <li><a href="${path }/user/pwdPage.do" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
     <li><a href="page.html" target="right"><span class="icon-caret-right"></span>单页管理</a></li>  
-    <li><a href="adv.html" target="right"><span class="icon-caret-right"></span>首页轮播</a></li>   
+    <li><a href="${path}/index/adv.do" target="right"><span class="icon-caret-right"></span>首页轮播</a></li>   
     <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>     
     <li><a href="${path}/login/index.do" target="right"><span class="icon-caret-right"></span>栏目管理</a></li>
   </ul>   
@@ -59,7 +59,7 @@ $(function(){
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a> </li>
 </ul>
 <div class="admin">
-  <iframe scrolling="no" rameborder="0" src="${path}/index/welcome.do" name="right" width="100%" height="100%"></iframe>
+  <iframe scrolling="auto" frameborder="0" src="${path}/index/welcome.do" name="right" width="100%" height="100%"></iframe>
 </div>
 <div style="text-align:center;">
 <p>来源:<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>

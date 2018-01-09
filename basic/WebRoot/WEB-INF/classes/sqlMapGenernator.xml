@@ -6,7 +6,7 @@
 >
 <generatorConfiguration>
 	<!-- 制定mysql的驱动包的路径 千万别放中文路径下 -->
-	<classPathEntry location="C:\workspace\workspace2\bbs\WebRoot\WEB-INF\lib\mysql-connector-java-5.1.25-bin.jar" />
+	<classPathEntry location="C:\MyRepository\8bitWeb\basic\WebRoot\WEB-INF\lib\mysql-connector-java-5.1.25-bin.jar" />
 	<!-- 配置数据源和生成的代码所存放的位置 -->
 	<context id="context1">
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"

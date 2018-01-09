@@ -53,8 +53,53 @@
     </div>
 </div>
  <script type="text/javascript">
-	 function submitlogin(){
-	 window.location.href="jsp/index/index";
+function submitlogin(){
+		 /* if(isusername()&&ispwd()&&isyanzhengma()){ */
+			 var name=$.trim($("#name").val());
+			 var pwd=$.trim($("#pwd").val());
+			 //var yanzhengma=$.trim($("#yanzhengma").val());
+			 var param={};
+			 param.loginname=name;
+			 param.pwd=pwd;
+			// param.yanzhengma=yanzhengma;
+			 param.pathlocation='${pathlocation}';
+			 $.ajax({
+				   type: "POST",
+				   url: "${path}/login/login.do",
+				   data: param,
+				   dataType: "json", 
+				   async: false,
+				   success: function(data){
+					   var flag=data.flag;
+					   var pathlocation=data.pathlocation;
+					   if(flag==99){
+						  /*  $("#namespan").html("用户名错误");
+							$("#namespan").show(); */
+							alert("用户名错误");
+					   }else if(flag==88){
+						   /* $("#pwdspan").html("密码错误");
+							$("#pwdspan").show();
+							$("#namespan").hide(); */
+						   alert("密码错误");
+					   }else if(flag==77){
+						  /*  $("#yanzhengmaspan").html("验证码错误");
+							$("#yanzhengmaspan").show();
+							$("#namespan").hide();
+							$("#pwdspan").hide(); */
+						   alert("验证码错误");
+					   }else if(flag==0){
+						  /*  $("#namespan").html("用户名限制登录");
+							$("#namespan").show();
+							$("#pwdspan").hide(); */
+						   alert("用户名限制登录");
+					   }else if(flag==1){
+						   window.location.href=pathlocation;
+					   }else{
+						   alert("系统错误");
+					   }
+				   }
+			 });
+		/*  } */
 	 }
  </script>
  

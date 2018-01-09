@@ -28,7 +28,7 @@ public class UserController {
 	//跳转首页
 	@RequestMapping("index.do")
 	public String add(HttpServletRequest request) {
-		return "jsp/index/user/user-ziliao";
+		return "jsp/index/index";
 	}
 	
 	//跳转首页

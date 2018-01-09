@@ -15,7 +15,7 @@
 		<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/basic?useUnicode=true&amp;characterEncoding=utf8" />
 		<property name="username" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="123456" />
 		<property name="filters" value="stat" />
 		<property name="maxActive" value="20" />
 		<property name="initialSize" value="2" />
