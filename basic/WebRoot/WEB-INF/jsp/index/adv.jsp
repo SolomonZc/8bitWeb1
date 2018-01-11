@@ -76,7 +76,7 @@ function del(id,mid){
 <div class="panel admin-panel margin-top" id="add">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加内容</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="">    
+    <form method="post" class="form-x" action="uploadpic.do" enctype="multipart/form-data">    
       <div class="form-group">
         <div class="label">
           <label>标题：</label>
@@ -101,7 +101,7 @@ function del(id,mid){
         </div>
         <div class="field">
           <input type="text" id="url1" name="img" class="input tips" style="width:25%; float:left;"  value="" data-toggle="hover" data-place="right" data-image="" />
-          <input type="file" class="button bg-blue margin-left" id="image1" value="+ 浏览上传"  style="float:left;">
+          <input type="file" onchange="uploadPic()" class="button bg-blue margin-left" id="image1" value="+ 浏览上传"  style="float:left;">
           <div class="tipss">图片尺寸：1920*500</div>
         </div>
       </div>
@@ -134,4 +134,25 @@ function del(id,mid){
     </form>
   </div>
 </div>
+<script type="text/javascript">
+function uploadPic(){
+			alert("进入图片上传function");
+			var formdata = new FormData(); 
+			alert("进入图片上传function1"); 
+			var fileObj = document.getElementById("image1").files[0]; // js 获取文件对象
+			alert("进入图片上传function2"); 
+			formdata.append("imgFile", fileObj);
+			alert("进入图片上传function3");
+			$.ajax({
+				   type: "POST",
+				   url: "${path}/index/uploadpic.do",
+				   //data: formdata,
+				   dataType: "json", 
+				   async: false,
+				   success: function(data){
+				   
+				   }
+			 });
+	 }
+ </script>
 </body></html>
