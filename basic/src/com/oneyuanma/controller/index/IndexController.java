@@ -3,24 +3,36 @@ package com.oneyuanma.controller.index;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse; 
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.json.JSONObject; 
 
+import com.oneyuanma.model.Adv;
+import com.oneyuanma.model.User;
 import com.oneyuanma.service.AdvService;
+import com.oneyuanma.service.UserService;
+import com.oneyuanma.tool.PublicStatic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 /*
  * 首页
  * 
@@ -51,10 +63,29 @@ public class IndexController {
 		return "jsp/index/adv";
 	}
 	
-	@RequestMapping("uploadpic.do")
-	public String uploadpic(HttpServletRequest request, Model model) {
-		log.info("uploadpic in success");
-		return "jsp/index/welcome";
+	@RequestMapping("advpic.do")
+	@ResponseBody
+    public String  advpic(HttpServletRequest request,Adv adv)
+    {
+		System.out.println("advpic in success");
+		System.out.println(adv.getName());
+		System.out.println(adv.getUrl());
+		System.out.println(adv.getDescrib());
+		System.out.println(adv.getGrade());
+		Adv advupdate = new Adv();
+		advupdate.setId(adv.getGrade());
+		advupdate.setName(adv.getName());
+		advupdate.setDescrib(adv.getDescrib());
+		advupdate.setGrade(adv.getGrade());
+		advupdate.setUrl(adv.getUrl());
+		AdvService.insert(advupdate);
+		return "1";
+    }
+	
+//	@RequestMapping("advpic.do")
+//	public String advpic(HttpServletRequest request, Model model) {
+//		System.out.println("uploadpic in success");
+//		return "jsp/index/welcome";
 //		 try {  
 //	            // 获取图片原始文件名  
 //	            String originalFilename = pic.getOriginalFilename();  
@@ -93,7 +124,7 @@ public class IndexController {
 //	        } catch (Exception e) {  
 //	            throw new RuntimeException("服务器繁忙，上传图片失败");  
 //	        }
-	}
+//	}
 	
 	
 }
