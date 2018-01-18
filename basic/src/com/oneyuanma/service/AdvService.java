@@ -56,6 +56,11 @@ public class AdvService {
 		// TODO Auto-generated method stub
 		return AdvPicture.find(Adv);
 	}
+	
+	public List<Adv> findall() {
+		// TODO Auto-generated method stub
+		return AdvPicture.findall();
+	}
 
 
 //	public String isusername(String loginname) {

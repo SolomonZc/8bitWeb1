@@ -1,5 +1,6 @@
 package com.oneyuanma.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,11 @@ public class AdvPicture extends SqlSessionDaoSupport{
 	
 	public List<Adv> find(Adv Adv) {
 		return this.getSqlSession().selectList(ap+"find", Adv);
+	}
+	
+	public List<Adv> findall() {
+		List<Adv> Adv = new ArrayList<Adv>();
+		return this.getSqlSession().selectList(ap+"findall",Adv);
 	}
 
 	public void insert(Adv Adv) {

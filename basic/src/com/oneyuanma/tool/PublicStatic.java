@@ -47,4 +47,7 @@ public class PublicStatic {
 	
 	//首页的统�?
 	public static Map<String, Object> indexmap;
+	
+	//轮播图
+	public static final String ADV="adv";
 }

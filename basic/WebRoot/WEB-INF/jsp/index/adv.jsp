@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/inc/taglibs.jsp"%>
-
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -29,42 +28,20 @@
       <th width="10%">排序</th>
       <th width="15%">操作</th>
     </tr>
-   
+	<c:forEach   items="${advlist}" var="advlist1">
     <tr>
-      <td>1</td>     
+      <td>${advlist1.id }</td>     
  <!--    <td><img src="${path}/public/images/11.jpg" alt="" width="120" height="50" /></td>      --> 
-	  <td>${adv.url }</td> 
-      <td>${adv.name }</td>
-      <td>${adv.describ }</td>
-      <td>${adv.grade }</td>
+	  <td>${advlist1.url }</td> 
+      <td>${advlist1.name }</td>
+      <td>${advlist1.describ }</td>
+      <td>${advlist1.grade }</td>
       <td><div class="button-group">
       <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
       <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1)"><span class="icon-trash-o"></span> 删除</a>
       </div></td>
     </tr>
-    <tr>
-      <td>2</td>     
-      <td><img src="${path}/public/images/11.jpg" alt="" width="120" height="50" /></td>     
-      <td>首页焦点图</td>
-      <td>描述文字....</td>
-      <td>1</td>
-      <td><div class="button-group">
-      <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
-      <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1)"><span class="icon-trash-o"></span> 删除</a>
-      </div></td>
-    </tr>
-    <tr>
-      <td>3</td>     
-      <td><img src="${path}/public/images/11.jpg" alt="" width="120" height="50" /></td>     
-      <td>首页焦点图</td>
-      <td>描述文字....</td>
-      <td>1</td>
-      <td><div class="button-group">
-      <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
-      <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1)"><span class="icon-trash-o"></span> 删除</a>
-      </div></td>
-    </tr>
-    
+    </c:forEach>
   </table>
 </div>
 <script type="text/javascript">
@@ -136,13 +113,22 @@ function del(id,mid){
   </div>
 </div>
 <script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+		   type: "POST",
+		   url: "${path}/index/advPicShow.do",
+		   data: formData,
+		   dataType: "json", 
+		   async: false,
+		   success: function(data){
+		   }
+		 });
+	});
 	function uploadPic(){
-		
 		 var name=$.trim($("#title").val());
 		 var describ=$.trim($("#note").val());
 		 var url=$.trim($("#url").val());
 		 var grade=$.trim($("#sort").val());
-		 
 		 //var yanzhengma=$.trim($("#yanzhengma").val());
 		 var formData={};
 		 formData.name=name;
@@ -156,7 +142,9 @@ function del(id,mid){
 			   dataType: "json", 
 			   async: false,
 			   success: function(data){
-			   
+			   		if(data="success"){
+			   			alert("设置数据库成功")
+			   		}
 			   }
 		 });
 	 }

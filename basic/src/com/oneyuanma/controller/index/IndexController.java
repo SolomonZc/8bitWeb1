@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject; 
@@ -59,8 +60,18 @@ public class IndexController {
 	
 	@RequestMapping("adv.do")
 	public String adv(HttpServletRequest request, Model model) {
-		log.info("advis in success");
+		List<Adv> advList = AdvService.findall();
+		System.out.println(advList.size());
+		request.setAttribute("advlist", advList);
+		model.addAttribute("advlist", (Adv)request.getSession().getAttribute("advlist"));
 		return "jsp/index/adv";
+	}
+	
+	@RequestMapping("advPicShow.do")
+	public String advPicShow(HttpServletRequest request, Model model) {
+		List<Adv> advList = AdvService.findall();
+		request.setAttribute("advlist", advList);
+		return "";
 	}
 	
 	@RequestMapping("advpic.do")
@@ -79,7 +90,7 @@ public class IndexController {
 		advupdate.setGrade(adv.getGrade());
 		advupdate.setUrl(adv.getUrl());
 		AdvService.insert(advupdate);
-		return "1";
+		return "success";
     }
 	
 //	@RequestMapping("advpic.do")

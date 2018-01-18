@@ -23,6 +23,10 @@
     </trim>
   </insert>
   
+  <select id="findall"  resultType="com.oneyuanma.model.Adv" parameterType="com.oneyuanma.model.Adv" >
+    select * from adv_picture
+  </select>
+  
   <update id="update" parameterType="com.oneyuanma.model.Adv" >
     update adv_picture
     <set >
