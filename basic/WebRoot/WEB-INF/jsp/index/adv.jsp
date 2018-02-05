@@ -14,7 +14,7 @@
     <script src="${path}/public/js/pintuer.js"></script>  
 </head>
 <body>
-<div class="panel admin-panel">
+<div class="panel admin-panel" >
   <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
   <div class="padding border-bottom">  
   <button type="button" class="button border-yellow" onclick="window.location.href='#add'"><span class="icon-plus-square-o"></span> 添加内容</button>
@@ -28,19 +28,18 @@
       <th width="10%">排序</th>
       <th width="15%">操作</th>
     </tr>
-	<c:forEach   items="${advlist}" var="advlist1">
-    <tr>
-      <td>${advlist1.id }</td>     
- <!--    <td><img src="${path}/public/images/11.jpg" alt="" width="120" height="50" /></td>      --> 
-	  <td>${advlist1.url }</td> 
-      <td>${advlist1.name }</td>
-      <td>${advlist1.describ }</td>
-      <td>${advlist1.grade }</td>
-      <td><div class="button-group">
-      <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
-      <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1)"><span class="icon-trash-o"></span> 删除</a>
-      </div></td>
-    </tr>
+    <c:forEach   items="${advlists}" var="advlists">
+	    <tr>
+	      <td>${advlists.id }</td>     
+		  <td>${advlists.name }</td> 
+	      <td>${advlists.describ }</td>
+	      <td>${advlists.url }</td>
+	      <td>${advlists.grade }</td>
+	      <td><div class="button-group">
+	      <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
+	      <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1)"><span class="icon-trash-o"></span> 删除</a>
+	      </div></td>
+	    </tr>
     </c:forEach>
   </table>
 </div>
@@ -113,17 +112,6 @@ function del(id,mid){
   </div>
 </div>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-		   type: "POST",
-		   url: "${path}/index/advPicShow.do",
-		   data: formData,
-		   dataType: "json", 
-		   async: false,
-		   success: function(data){
-		   }
-		 });
-	});
 	function uploadPic(){
 		 var name=$.trim($("#title").val());
 		 var describ=$.trim($("#note").val());

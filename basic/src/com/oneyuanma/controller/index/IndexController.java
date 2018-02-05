@@ -58,20 +58,22 @@ public class IndexController {
 		return "jsp/index/welcome";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("adv.do")
 	public String adv(HttpServletRequest request, Model model) {
-		List<Adv> advList = AdvService.findall();
-		System.out.println(advList.size());
-		request.setAttribute("advlist", advList);
-		model.addAttribute("advlist", (Adv)request.getSession().getAttribute("advlist"));
+		model.addAttribute("advlists", (List<Adv>)request.getSession().getAttribute("advlists"));
 		return "jsp/index/adv";
 	}
 	
 	@RequestMapping("advPicShow.do")
-	public String advPicShow(HttpServletRequest request, Model model) {
+	public Object advPicShow(HttpServletRequest request, Model model) {
+		System.out.println("advPicShow in success");
 		List<Adv> advList = AdvService.findall();
-		request.setAttribute("advlist", advList);
-		return "";
+		System.out.println(advList.size());
+		System.out.println(advList.get(0).getId());
+		request.getSession().setAttribute("advlists", advList);
+		request.getSession().setAttribute("advlisto", advList.get(0));
+		return advList;
 	}
 	
 	@RequestMapping("advpic.do")

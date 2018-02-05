@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${path}/public/css/admin.css">
     <script src="${path}/public/js/jquery.js"></script>   
 </head>
-<body style="background-color:#f2f9fd;">
+<body style="background-color:#f2f9fd;" onload="advPicShow()">
 <div class="header bg-main">
   <div class="logo margin-big-left fadein-top">
     <h1><img src="${path}/public/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />后台管理中心</h1>
@@ -28,7 +28,7 @@
     <li><a href="info.html" target="right"><span class="icon-caret-right"></span>网站设置</a></li>
     <li><a href="${path }/user/pwdPage.do" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
     <li><a href="page.html" target="right"><span class="icon-caret-right"></span>单页管理</a></li>  
-    <li><a href="${path}/index/adv.do" target="right"><span class="icon-caret-right"></span>首页轮播</a></li>   
+    <li><a href="${path}/index/adv.do" target="right" onclick="${path}/index/advPicShow.do"><span class="icon-caret-right"></span>首页轮播</a></li>   
     <li><a href="book.html" target="right"><span class="icon-caret-right"></span>留言管理</a></li>     
     <li><a href="${path}/login/index.do" target="right"><span class="icon-caret-right"></span>栏目管理</a></li>
   </ul>   
@@ -51,6 +51,18 @@ $(function(){
 		$(this).addClass("on");
   })
 });
+	function advPicShow(){
+		$.ajax({
+			   type: "POST",
+			   url: "${path}/index/advPicShow.do",
+			   async: false,
+			   success: function(data){
+			   		if(data="success"){
+			   			alert("设置数据库成功")
+			   		}
+			   }
+		 });
+	 }
 </script>
 <ul class="bread">
   <li><a href="{:U('Index/info')}" target="right" class="icon-home"> 首页</a></li>
