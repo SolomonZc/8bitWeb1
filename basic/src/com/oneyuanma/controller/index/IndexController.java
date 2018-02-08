@@ -1,30 +1,14 @@
 package com.oneyuanma.controller.index;
 
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse; 
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.Random;
 
-import org.json.JSONObject; 
+import javax.servlet.http.HttpServletRequest;
 
-import com.oneyuanma.model.Adv;
-import com.oneyuanma.model.User;
-import com.oneyuanma.service.AdvService;
-import com.oneyuanma.service.UserService;
-import com.oneyuanma.tool.PublicStatic;
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import com.oneyuanma.model.Adv;
+import com.oneyuanma.service.AdvService;
 /*
  * 首页
  * 
@@ -78,11 +63,46 @@ public class IndexController {
 	
 	@RequestMapping("advpic.do")
 	@ResponseBody
-    public String  advpic(HttpServletRequest request,Adv adv)
+    public String  advpic(HttpServletRequest request,Adv adv,@RequestParam("uploadImg") MultipartFile multipartFile)
     {
+		System.out.println("uploadImage in success");
+		//处理上传文件  
+		String oldFileName = multipartFile.getOriginalFilename();
+		System.out.println(oldFileName);
+		//文件后缀  
+		String suffix = oldFileName.substring(oldFileName.lastIndexOf("."));
+		System.out.println(suffix);
+		//获取文件提交路径(服务器)  
+		//request.getServletContext() --> application  
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("http://localhost:8080");
+		buffer.append(request.getServletContext().getContextPath());
+		buffer.append("/upload");
+		System.out.println(buffer.toString());
+		
+		//文件重命名  
+		//时间(毫秒数)+随机数+_blog+suffix  
+		//1970-1-1~今天   System.currentTimeMillis();  
+		String newFileName = System.currentTimeMillis()+new Random().nextInt(1000000)+"_blog"+suffix;  
+		System.out.println(newFileName);
+		//上传文件 java.io.File  
+		File targetFile = new File(buffer.toString(),newFileName);  
+		try {  
+		multipartFile.transferTo(targetFile);  
+		} catch (IllegalStateException e){  
+		e.printStackTrace();  
+		} catch (IOException e) {  
+		e.printStackTrace();  
+		}
+		
+		String uploadPath1 = request.getServletContext().getRealPath("/upload/"+newFileName);
+		System.out.println(uploadPath1);
+		
+		String uploadPath2 = "WebRoot/upload/"+newFileName;
+		System.out.println(uploadPath2);
+		
 		System.out.println("advpic in success");
 		System.out.println(adv.getName());
-		System.out.println(adv.getUrl());
 		System.out.println(adv.getDescrib());
 		System.out.println(adv.getGrade());
 		Adv advupdate = new Adv();
@@ -90,9 +110,9 @@ public class IndexController {
 		advupdate.setName(adv.getName());
 		advupdate.setDescrib(adv.getDescrib());
 		advupdate.setGrade(adv.getGrade());
-		advupdate.setUrl(adv.getUrl());
+		advupdate.setUrl(uploadPath2);
 		AdvService.insert(advupdate);
-		return "success";
+		return uploadPath2;
     }
 	
 //	@RequestMapping("advpic.do")

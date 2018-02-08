@@ -78,6 +78,12 @@
             <ref bean="mappingJacksonHttpMessageConverter" /><!-- json转换器 -->    
         </list>    
     </property>    
-</bean> 
+</bean>
+ <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+<property name="maxUploadSize" value="500000"></property>  
+<property name="defaultEncoding">  
+<value>UTF-8</value>  
+</property>  
+ </bean> 
 <bean id="toolSpring" class="com.oneyuanma.tool.ToolSpring"></bean>
 </beans>

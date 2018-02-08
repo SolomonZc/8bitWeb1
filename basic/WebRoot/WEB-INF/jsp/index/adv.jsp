@@ -34,6 +34,7 @@
 		  <td>${advlists.name }</td> 
 	      <td>${advlists.describ }</td>
 	      <td>${advlists.url }</td>
+	      <td><img  id="showImage" src="${advlists.url }" alt="" width="120" height="50" /></td>
 	      <td>${advlists.grade }</td>
 	      <td><div class="button-group">
 	      <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
@@ -73,12 +74,8 @@ function del(id,mid){
         </div>
       </div>
       <div class="form-group">
-        <div class="label">
-          <label>图片：</label>
-        </div>
         <div class="field">
-          <input type="text" id="url1" name="img" class="input tips" style="width:25%; float:left;"  value="" data-toggle="hover" data-place="right" data-image="" />
-          <input type="button" class="button bg-blue margin-left" id="image1" value="+ 浏览上传"  style="float:left;">
+          <input type="file" class="button bg-blue margin-left" id="uploadImg" name="uploadImg" onChange="submitImg()" style="float:left;">
           <div class="tipss">图片尺寸：1920*500</div>
         </div>
       </div>
@@ -117,24 +114,33 @@ function del(id,mid){
 		 var describ=$.trim($("#note").val());
 		 var url=$.trim($("#url").val());
 		 var grade=$.trim($("#sort").val());
+		 var file = document.getElementById("uploadImg").files[0];
 		 //var yanzhengma=$.trim($("#yanzhengma").val());
-		 var formData={};
-		 formData.name=name;
-		 formData.describ=describ;
-		 formData.url=url;
-		 formData.grade=grade;
+		 var formFile = new FormData();
+		 formFile.append("name", name);
+		 formFile.append("describ", describ);
+		 formFile.append("grade", grade);
+		 formFile.append("uploadImg", file);
+	//	 var formData={};
+		// formData.name=name;
+		 //formData.describ=describ;
+		 //formData.url=url;
+		 //formData.grade=grade;
 		$.ajax({
 			   type: "POST",
 			   url: "${path}/index/advpic.do",
-			   data: formData,
+			   data: formFile,
 			   dataType: "json", 
 			   async: false,
+	           cache: false,  
+	           contentType: false,  
+	           processData: false, 
 			   success: function(data){
-			   		if(data="success"){
-			   			alert("设置数据库成功")
-			   		}
+			   alert(data);
+			   $(".showImage").attr("src",data);
 			   }
 		 });
 	 }
+	 
  </script>
 </body></html>
