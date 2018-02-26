@@ -11,7 +11,31 @@
     <link rel="stylesheet" href="${path}/public/css/pintuer.css">
     <link rel="stylesheet" href="${path}/public/css/admin.css">
     <script src="${path}/public/js/jquery.js"></script>
+    <script src="${path}/public/js/jquery.validate.js"></script>
     <script src="${path}/public/js/pintuer.js"></script>  
+     <script type="text/javascript">  
+     $(function(){  
+     //让当前表单调用validate方法，实现表单验证功能  
+     $("#ff").validate({  
+     debug:true, 
+     //调试模式，即使验证成功也不会跳转到目标页面  
+     rules:{ 
+     //配置验证规则，key就是被验证的dom对象，value就是调用验证的方法(也是json格式)   
+     sort:{   
+	     required:true, 
+	     //必填。如果验证方法不需要参数，则配置为true   
+	     range:[1,3]   
+	     },    
+     },  
+     messages:{   
+	     sort:{   
+		     required:"请输入用户名",   
+		     range:$.validator.format("轮播图排序必须为：{1}-{3}之间")  
+	      },
+     }  
+     });  
+     });  
+     </script> 
 </head>
 <body>
 <div class="panel admin-panel" >
@@ -30,11 +54,10 @@
     </tr>
     <c:forEach   items="${advlists}" var="advlists">
 	    <tr>
-	      <td>${advlists.id }</td>     
+	      <td>${advlists.id }</td>
+   	      <td><img  id="showImage" src="${advlists.url }" alt="" width="120" height="50" /></td>     
 		  <td>${advlists.name }</td> 
 	      <td>${advlists.describ }</td>
-	      <td>${advlists.url }</td>
-	      <td><img  id="showImage" src="${advlists.url }" alt="" width="120" height="50" /></td>
 	      <td>${advlists.grade }</td>
 	      <td><div class="button-group">
 	      <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
@@ -54,7 +77,7 @@ function del(id,mid){
 <div class="panel admin-panel margin-top" id="add">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加内容</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="">    
+    <form method="post" class="form-x" action="" id="ff">    
       <div class="form-group">
         <div class="label">
           <label>标题：</label>
@@ -93,7 +116,7 @@ function del(id,mid){
           <label>排序：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" id="sort" name="sort" value="0"  data-validate="required:,number:排序必须为数字" />
+          <input type="text" class="input w50" id="sort" name="sort"  data-validate="required:,number:排序必须为数字" />
           <div class="tips"></div>
         </div>
       </div>
@@ -127,20 +150,21 @@ function del(id,mid){
 		 //formData.url=url;
 		 //formData.grade=grade;
 		$.ajax({
-			   type: "POST",
-			   url: "${path}/index/advpic.do",
-			   data: formFile,
-			   dataType: "json", 
-			   async: false,
-	           cache: false,  
-	           contentType: false,  
-	           processData: false, 
-			   success: function(data){
+		   type: "POST",
+		   url: "${path}/index/advpic.do",
+		   data: formFile,
+		   dataType: "json", 
+		   async: false,
+           cache: false,  
+           contentType: false,  
+           processData: false, 
+		   success: function(data){
 			   alert(data);
 			   $(".showImage").attr("src",data);
-			   }
+		   }
 		 });
 	 }
 	 
  </script>
-</body></html>
+</body>
+</html>
