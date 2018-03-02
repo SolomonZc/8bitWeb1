@@ -30,6 +30,7 @@ public class AdvService {
 	}
 
 	public String delete(Integer id) {
+		System.out.println(id);
 		String result="1";
 		AdvPicture.delete(id);
 		return result;

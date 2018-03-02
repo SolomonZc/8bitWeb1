@@ -37,6 +37,7 @@ public class AdvPicture extends SqlSessionDaoSupport{
 	}
 
 	public void delete(Integer id) {
+		System.out.println(id);
 		this.getSqlSession().delete(ap+"delete", id);
 	}
 

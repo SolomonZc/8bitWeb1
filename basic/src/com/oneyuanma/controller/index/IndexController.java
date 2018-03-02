@@ -3,6 +3,7 @@ package com.oneyuanma.controller.index;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -69,42 +70,6 @@ public class IndexController {
     public String  advpic(HttpServletRequest request,Adv adv,@RequestParam("uploadImg") MultipartFile multipartFile)
     {
 		System.out.println("uploadImage in success");
-//		//处理上传文件  
-//		String oldFileName = multipartFile.getOriginalFilename();
-//		System.out.println(oldFileName);
-//		//文件后缀  
-//		String suffix = oldFileName.substring(oldFileName.lastIndexOf("."));
-//		System.out.println(suffix);
-//		//获取文件提交路径(服务器)  
-//		//request.getServletContext() --> application  
-//		StringBuffer buffer = new StringBuffer();
-//		buffer.append("http://localhost:8080");
-//		buffer.append(request.getServletContext().getRealPath("/upload"));
-//		buffer.append("/upload");
-//		System.out.println(buffer.toString());
-//		
-//		//文件重命名  
-//		//时间(毫秒数)+随机数+_blog+suffix  
-//		//1970-1-1~今天   System.currentTimeMillis();  
-//		String newFileName = System.currentTimeMillis()+new Random().nextInt(1000000)+"_blog"+suffix;  
-//		System.out.println(newFileName);
-//		//上传文件 java.io.File  
-//		File targetFile = new File(buffer.toString(),newFileName);  
-//		try {  
-//		multipartFile.transferTo(targetFile);  
-//		} catch (IllegalStateException e){  
-//		e.printStackTrace();  
-//		} catch (IOException e) {  
-//		e.printStackTrace();  
-//		}
-//		
-//		String uploadPath1 = request.getServletContext().getRealPath("/upload/"+newFileName);
-//		System.out.println(uploadPath1);
-//		
-//		String uploadPath2 = "WebRoot/upload/"+newFileName;
-//		System.out.println(uploadPath2);
-		
-		
         File targetFile=null;
         String msg="";//返回存储路径
         int code=1;
@@ -154,49 +119,15 @@ public class IndexController {
 		return JSON.toJSONString(msg);
     }
 	
-//	@RequestMapping("advpic.do")
-//	public String advpic(HttpServletRequest request, Model model) {
-//		System.out.println("uploadpic in success");
-//		return "jsp/index/welcome";
-//		 try {  
-//	            // 获取图片原始文件名  
-//	            String originalFilename = pic.getOriginalFilename();  
-//	            System.out.println(originalFilename);  
-//	          
-//	            // 文件名使用当前时间  
-//	            String name = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());  
-//	          
-//	            // 获取上传图片的扩展名(jpg/png/...)  
-//	            String extension = FilenameUtils.getExtension(originalFilename);  
-//	              
-//	            // 图片上传的相对路径（因为相对路径放到页面上就可以显示图片）  
-//	            String path = "/upload/" + name + "." + extension;  
-//	  
-//	            // 图片上传的绝对路径  
-//	            String url = request.getSession().getServletContext().getRealPath("") + path;  
-//	          
-//	                File dir = new File(url);  
-//	            if(!dir.exists()) {  
-//	            dir.mkdirs();  
-//	            }  
-//	              
-//	            // 上传图片  
-//	            pic.transferTo(new File(url));  
-//	          
-//	            // 将相对路径写回（json格式）  
-//	            JSONObject jsonObject = new JSONObject();  
-//	            // 将图片上传到本地  
-//	            jsonObject.put("path", path);  
-//	          
-////	            // 设置响应数据的类型json  
-////	            response.setContentType("application/json; charset=utf-8");  
-////	            // 写回  
-////	            response.getWriter().write(jsonObject.toString());  
-//	  
-//	        } catch (Exception e) {  
-//	            throw new RuntimeException("服务器繁忙，上传图片失败");  
-//	        }
-//	}
-	
-	
+	@RequestMapping("advPicDelete.do")
+	@ResponseBody
+    public String  advPicDelete(HttpServletRequest request,@RequestParam("picId") int picId)
+    {
+		System.out.println("advPicDelete in success");
+
+		System.out.println(picId);
+		AdvService.delete(picId);
+//		return uploadPath2;
+		return "";
+    }
 }

@@ -45,5 +45,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from adv_picture
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
 </mapper>

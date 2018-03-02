@@ -52,28 +52,21 @@
       <th width="10%">排序</th>
       <th width="15%">操作</th>
     </tr>
-    <c:forEach   items="${advlists}" var="advlists">
+    <c:forEach items="${advlists}" var="advlists">
 	    <tr>
-	      <td>${advlists.id }</td>
+	      <td id="advlistsId">${advlists.id }</td>
    	      <td><img  id="showImage" src="${advlists.url }" alt="" width="120" height="50" /></td>     
 		  <td>${advlists.name }</td> 
 	      <td>${advlists.describ }</td>
 	      <td>${advlists.grade }</td>
 	      <td><div class="button-group">
 	      <a class="button border-main" href="#add"><span class="icon-edit"></span> 修改</a>
-	      <a class="button border-red" href="javascript:void(0)" onclick="return del(1,1)"><span class="icon-trash-o"></span> 删除</a>
+	      <a class="button border-red" href="javascript:void(0)" onclick="return del(${advlists.id },1)"><span class="icon-trash-o"></span> 删除</a>
 	      </div></td>
 	    </tr>
     </c:forEach>
   </table>
 </div>
-<script type="text/javascript">
-function del(id,mid){
-	if(confirm("您确定要删除吗?")){
-	
-	}
-}
-</script>
 <div class="panel admin-panel margin-top" id="add">
   <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加内容</strong></div>
   <div class="body-content">
@@ -160,8 +153,38 @@ function del(id,mid){
            processData: false, 
 		   success: function(data){
 			   alert(data);
-			   $(".showImage").attr("src",data);
+			   advPicShow();
+			   location.reload();
 		   }
+		 });
+	 }
+	 function del(id,mid){
+		 var formFile = new FormData();
+		 formFile.append("picId", id);
+		if(confirm("您确定要删除吗?")){
+			$.ajax({
+			   type: "POST",
+			   url: "${path}/index/advPicDelete.do",
+			   data:  formFile,
+			   dataType: "json", 
+			   async: false,
+	           cache: false, 
+	           contentType:false,  
+	           processData: false, 
+			   success: function(data){
+			   	 alert("sdfasdf");
+			   	 advPicShow();
+				 location.reload();
+			   }
+		 	});
+		}
+	}
+	 
+ 	function advPicShow(){
+		$.ajax({
+		   type: "POST",
+		   url: "${path}/index/advPicShow.do",
+		   async: false,
 		 });
 	 }
 	 
